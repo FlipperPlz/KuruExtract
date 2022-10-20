@@ -44,7 +44,6 @@ public sealed class PBOEntry
         _dataWasRead = false;
         EntryMimeType = entryMimeType;
         EntryName = entryName;
-        EntryData = new byte[storedDataSize];
         PackedDataSize = storedDataSize;
         OriginalDataSize = originalDataSize;
     }
@@ -77,8 +76,7 @@ public sealed class PBOEntry
     
     public void ReadEntryData(RVBinaryReader reader) 
     {
-        // EntryData = reader.ReadBytes(PackedDataSize);
-        Array.Copy(reader.ReadBytes(PackedDataSize), EntryData, EntryData.Length);
+        EntryData = reader.ReadBytes(PackedDataSize);
         _dataWasRead = true;
     }
 
