@@ -133,7 +133,7 @@ internal sealed class ExtractDayZCommand : Command<ExtractDayZCommand.Settings>
                 if (!string.IsNullOrEmpty(pbo.PBOPrefix) && !pbo.PBOPrefix.Contains('\\'))
                     prefixes.Add(pbo.PBOPrefix);
 
-                var task = ctx.AddTask(pbo.PBOPrefix! + ".pbo", false, pbo.PBOEntries.Count)
+                var task = ctx.AddTask(pbo.PBOName, false, pbo.PBOEntries.Count)
                     .IsIndeterminate();
 
                 tasks.Add(task);
@@ -171,7 +171,7 @@ internal sealed class ExtractDayZCommand : Command<ExtractDayZCommand.Settings>
 
                 foreach (var pbo in CollectionsMarshal.AsSpan(pbos))
                 {
-                    var task = tasks.First(x => x.Description == pbo.PBOPrefix + ".pbo");
+                    var task = tasks.First(x => x.Description == pbo.PBOName);
 
                     if (task.IsIndeterminate)
                         task.IsIndeterminate(false);
