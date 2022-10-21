@@ -12,7 +12,7 @@ public sealed class PBOFile : IDisposable {
 
     private readonly Dictionary<PBOEntry, long> _pboEntries = new();
     private readonly RVBinaryReader _pboReader;
-    private readonly string _pboPath;
+    public readonly string PBOName;
 
     public string PBOPrefix => PBOProperties!["prefix"];
     public List<PBOEntry> PBOEntries => _pboEntries.Keys.ToList();
@@ -23,7 +23,7 @@ public sealed class PBOFile : IDisposable {
     
     public PBOFile(string filename, Stream stream) 
     {
-        _pboPath = filename;
+        PBOName = filename;
         _pboReader = new RVBinaryReader(stream);
         
         _pboReader.ReadAsciiZ();

@@ -180,6 +180,7 @@ internal sealed class ExtractDayZCommand : Command<ExtractDayZCommand.Settings>
                         task.StartTask();
 
                     ExtractFiles(pbo, task, settings);
+                    pbo.Dispose();
                 }
             }
         });
@@ -225,7 +226,7 @@ internal sealed class ExtractDayZCommand : Command<ExtractDayZCommand.Settings>
         var pbos = Directory.GetFiles(path, "*.pbo", SearchOption.TopDirectoryOnly);
 
         for (int i = 0; i < pbos.Length; i++) 
-            yield return new PBOFile(Path.GetFileNameWithoutExtension(pbos[i]), File.OpenRead(pbos[i]));
+            yield return new PBOFile(Path.GetFileName(pbos[i]), File.OpenRead(pbos[i]));
     }
 
     private static void ExtractFiles(PBOFile pbo, ProgressTask task, Settings settings)
